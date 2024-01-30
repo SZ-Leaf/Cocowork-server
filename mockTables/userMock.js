@@ -7,7 +7,8 @@ const users = [
       address:"2 rue Chevalier",
       postcode: 33000,
       town: "Bordeaux",
-      password:"voleur"
+      password:"voleur",
+      RoleId:1
    },
    {
       id: 2,
@@ -17,7 +18,8 @@ const users = [
       address: "35 Avenue de la République",
       postcode: 33000,
       town: "Bordeaux",
-      password: "ptitvoleur"
+      password: "ptitvoleur",
+      RoleId:2
    },
 ];
  
