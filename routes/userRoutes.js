@@ -19,8 +19,4 @@ router
     .put(updateUser)
     .delete(deleteUser)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a7c529bae10db475751aab17e2586bc67bd9ad11
 module.exports = router
