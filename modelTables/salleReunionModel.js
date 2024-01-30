@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
                msg: "Nom de salle existent."
          },
       },
-      image:{
-         type: DataTypes.image,
-         allowNull: false,
-      },
+      // image:{
+      //    type: DataTypes.image,
+      //    allowNull: false,
+      // },
       description: {
          type: DataTypes.STRING,
          allowNull: false,

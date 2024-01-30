@@ -2,8 +2,11 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 
+const { sequelize } = require('./db/sequelizeSetup')
+
 const app = express();
 const port = 3005;
+
 
 app.use(express.json());
 app.use(morgan('dev'));
