@@ -3,12 +3,12 @@ const router = express.Router()
 // const {findAllUsers, createUser, login, findUserByPk, updateUser, deleteUser} = 
 
 const {login} = require('../controllers/authControllers')
-const {findAllUsers, findUserbyPk} = require('../controllers/userControllers')
+const {findAllUsers, findUserbyPk, createUser} = require('../controllers/userControllers')
 
 router 
     .route('/')
     .get(findAllUsers)
-    // .post(createUser)
+    .post(createUser)
 
 router
     .route('/login')
