@@ -1,0 +1,16 @@
+const sallesReunion = [
+   {
+      id: 1,
+      name: "Salle 1",
+      description: "Description de la salle 1.",
+      price: 150
+   },
+   {
+      id: 2,
+      name: "Salle 2",
+      description: "Description de la salle 2.",
+      price: 180
+   },
+];
+ 
+ module.exports = users 
