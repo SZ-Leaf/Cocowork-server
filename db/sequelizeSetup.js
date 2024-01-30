@@ -7,6 +7,8 @@ const ReservationModel = require('../modelTables/reservationsModel')
 const MessageModel = require('../modelTables/messagesModel')
 const {Sequelize, DataTypes} = require('sequelize')
 
+const { setRoles, setUsers, setCoworkings, setClosedSpaces, setSallesReunion } = require('./setDataSamples')
+
 const sequelize = new Sequelize('cocowork', 'root', '', {
     host: 'localhost',
     dialect: 'mariadb',
@@ -28,11 +30,14 @@ sequelize.sync({force: true})
         await setRoles(Role)
         await setUsers(User)
         await setCoworkings(Cowork)
-        console.log('Database and tables synced successfully.');
+        await setClosedSpaces(ClosedSpace)
+        await setSallesReunion(SalleReunion)
+        // console.log('Database and tables synced successfully.');
     })
     .catch((error) => {
         console.error('Error syncing database and tables:', error);
     });
+
 
 sequelize.authenticate()
     .then(() => console.log('La connexion à la base de données a bien été établie.'))

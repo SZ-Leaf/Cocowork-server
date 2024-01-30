@@ -4,7 +4,7 @@ const users = [
       name: "Emmanuel",
       lastname:"Macron",
       email:"emmy.macron@gmail.com",
-      adress:"2 rue Chevalier",
+      address:"2 rue Chevalier",
       postcode: 33000,
       town: "Bordeaux",
       password:"voleur"
@@ -14,9 +14,9 @@ const users = [
       name: "Gabriel",
       lastname: "Attal",
       email: "gigi.attal@gmail.com",
-      adress: "35 Avenue de la République",
+      address: "35 Avenue de la République",
       postcode: 33000,
-      town: Bordeaux,
+      town: "Bordeaux",
       password: "ptitvoleur"
    },
 ];
