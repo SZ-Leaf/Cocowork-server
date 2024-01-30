@@ -64,5 +64,38 @@ const deleteUser= (req,res)=>{
     })   
 }
 
+const updateUser = (req, res) => {
+   User.findByPk(req.params.id)
+      .then((result) => {
+         if (result) {
+            if (req.body.password) {
+               // Hashing password given before saving it
+               return bcrypt.hash(req.body.password, 10)
+                  .then((hash) => {
+                     req.body.password = hash;
+                     return result.update(req.body)
+                        .then(() => {
+                           res.status(201).json({ message: `User updated.`, data: result });
+                        });
+                  });
+            } else {
+               // If password is not given in the request body, keep the current value
+               req.body.password = result.password;
+               return result.update(req.body)
+                  .then(() => {
+                     res.status(201).json({ message: `User updated.`, data: result });
+                  });
+            }
+         } else {
+               res.status(404).json({ message: `User not found.` })
+         }
+      })
+      .catch(error => {
+         if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
+               return res.status(400).json({ message: error.message })
+         }
+         res.status(500).json({ message: 'Error.', data: error.message })
+      })
+}
                 
-module.exports = {findUserbyPk, findAllUsers, createUser, deleteUser}
+module.exports = {findUserbyPk, findAllUsers, createUser, deleteUser, updateUser}

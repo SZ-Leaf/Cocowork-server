@@ -3,7 +3,7 @@ const router = express.Router()
 // const {findAllUsers, createUser, login, findUserByPk, updateUser, deleteUser} = 
 
 const {login} = require('../controllers/authControllers')
-const {findAllUsers, findUserbyPk, createUser} = require('../controllers/userControllers')
+const {findAllUsers, findUserbyPk, createUser, deleteUser, updateUser} = require('../controllers/userControllers')
 
 router 
     .route('/')
@@ -17,7 +17,7 @@ router
 router
     .route('/:id')
     .get(findUserbyPk)
-    // .put(updateUser)
-    // .delete(deleteUser)
+    .put(updateUser)
+    .delete(deleteUser)
 
 module.exports = router
