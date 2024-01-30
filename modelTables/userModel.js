@@ -48,10 +48,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 validate:{
-                    isExactlyFiveCharacters: {
-                        args: [5],
-                        msg: 'Code postale doit contenir 5 characteres.',
-                        // isInt: true,
+                    isExactlyFiveCharacters: function (value) {
+                        if (value !== null && value.toString().length !== 5) {
+                            throw new Error('Code postale doit contenir 5 caractères.');
+                        }
                     },
                 
                 }
@@ -75,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
 
                         // min lengh 3 for username
                         msg: "Password must be at least 3 characters long.",
-                        min: [3, 20]
+                        min: 3
                     }
                 },
             },

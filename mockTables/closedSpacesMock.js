@@ -19,4 +19,6 @@ const closedSpaces = [
       id: 5,
       name: "Salle privée 5"
    },
-]
+];
+
+module.exports = closedSpaces
