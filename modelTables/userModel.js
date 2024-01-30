@@ -36,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
             email:{
                 type: DataTypes.STRING,
                 allowNull: false,
+                unique: {
+                    msg: "Email already taken."
+                },
                 validate: {
                     isEmail: true,
                 }
@@ -53,7 +56,6 @@ module.exports = (sequelize, DataTypes) => {
                             throw new Error('Code postale doit contenir 5 caractères.');
                         }
                     },
-                
                 }
             },
             town:{

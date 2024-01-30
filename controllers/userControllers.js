@@ -30,7 +30,7 @@ const findUserbyPk = (req, res) =>{
 const createUser = (req, res)=>{
     bcrypt.hash(req.body.password,10)
         .then((hash)=> {
-            User.create({...req.body, password:hash})
+            User.create({...req.body, password:hash, RoleId: "2" })
                 .then ((user)=> {
                     user.password = ""
                     res.status(201).json ({message:`User has been created.`, data: user})
