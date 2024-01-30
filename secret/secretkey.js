@@ -1,1 +1,0 @@
-module.exports = "cocowork-2024"
