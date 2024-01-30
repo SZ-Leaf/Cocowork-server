@@ -21,6 +21,17 @@ const SalleReunion = SalleReunionModel (sequelize, DataTypes)
 const Reservation = ReservationModel (sequelize, DataTypes)
 const Message = MessageModel (sequelize, DataTypes)
 
+Role.hasMany(User)
+User.belongsTo(Role)
+
+User.hasMany(Reservation)
+Reservation.belongsTo(User)
+
+User.hasMany(Message)
+Message.belongsTo(User)
+
+SalleReunion.hasMany(Reservation)
+Reservation.belongsTo(SalleReunion)
 
 
 sequelize.sync({force: true})

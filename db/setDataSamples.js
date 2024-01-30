@@ -29,7 +29,7 @@ const setUsers = (User) => {
 const setRoles = (Role) => {
     // Utilisation de Promise.all pour exécuter plusieurs opérations asynchrones en parallèle
     // Création d'un rôle avec le label "admin" et retourne la promesse résultante
-    // Création d'un rôle avec le label "edit" et retourne la promesse résultante
+    // Création d'un rôle avec le label "member" et retourne la promesse résultante
     Promise.all ([Role.create({ label: "admin" }),Role.create({ label: "member" })])
 }
 
