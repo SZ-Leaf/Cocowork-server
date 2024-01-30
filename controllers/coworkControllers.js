@@ -15,13 +15,13 @@ const findCoworkByPk = (req, res) => {
         .then((result) => {
             console.log(result)
             if (result) {
-                res.json({ message: 'Un coworking a été trouvé.', data: result })
+                res.json({ message: 'Coworking has been found..', data: result })
             } else {
-                res.status(404).json({ message: `Aucun coworking n'a été trouvé.` })
+                res.status(404).json({ message: `No Coworking found.` })
             }
         })
         .catch((error) => {
-            res.status(500).json({ message: 'Une erreur est survenue.', data: error.message })
+            res.status(500).json({ message: 'Error encountered.', data: error.message })
         })
 }
 
