@@ -70,8 +70,26 @@ const updateSalleReunionWithImg = (req, res) => {
     })
 }
 
+const deleteSalleReunion = (req, res) => {
+    SalleReunion.findByPk(req.params.id)
+        .then ((result)=>{
+            if (result) {
+                return result.destroy()
+                    .then((result) => {
+                        res.json({ message: `Salle de reunion has been delete.`, data: result})
+                    })
+                    
+            } else {
+                res.status(404).json({ message: `No Salle de reunion has been found`})
+            }
+
+        })
+        .catch((error) => {
+            res.status(500).json({ message: `Error encountered.`, data: error.message })
+
+        })
+    
+}
 
 
-
-
-module.exports= {findAllSalleReunions, findSalleReunionByPk, createSalleReunionWithImg, updateSalleReunionWithImg  }
+module.exports= {findAllSalleReunions, findSalleReunionByPk, createSalleReunionWithImg, updateSalleReunionWithImg, deleteSalleReunion}

@@ -1,16 +1,17 @@
 const express = require('express')
+const { findAllSalleReunions, createSalleReunionWithImg, findSalleReunionByPk, updateSalleReunionWithImg, deleteSalleReunion } = require('../controllers/salleReunionControllers')
 const router = express.Router()
-// const {findAllSalleReunions, createSalleReunion, findSalleReunionByPk, updateSalleReunion, deleteSalleReunion} = 
+
 
 router 
     .route('/')
     .get(findAllSalleReunions)
-    .post(createSalleReunion)  //admin
+    .post(createSalleReunionWithImg)  //admin
 
 router
     .route('/:id')
     .get(findSalleReunionByPk)
-    .put(updateSalleReunion)      //admin
+    .put(updateSalleReunionWithImg)      //admin
     .delete(deleteSalleReunion)   //admin
 
 module.exports = router
