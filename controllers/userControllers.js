@@ -27,4 +27,25 @@ const findUserbyPk = (req, res) =>{
       });
 }
 
-module.exports = {findUserbyPk, findAllUsers}
+const createUser = (req, res)=>{
+    bcrypt.hash(req.body.password,10)
+        .then((hash)=> {
+            User.create({...req.body, password:hash})
+                .then ((user)=> {
+                    user.password = ""
+                    res.status(201).json ({message:`User has been created.`, data: user})
+                })
+                .catch((error) => {
+                    if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
+                        return res.status(400).json({ message: error.message })
+                    }
+                    res.status(500).json({ message: `User can't be created.`, data: error.message })
+                })
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+}
+
+                
+module.exports = {findUserbyPk, findAllUsers, createUser}
