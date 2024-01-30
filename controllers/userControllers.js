@@ -39,7 +39,7 @@ const createUser = (req, res)=>{
                     if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
                         return res.status(400).json({ message: error.message })
                     }
-                    res.status(500).json({ message: `User can't be created.`, data: error.message })
+                    res.status(500).json({ message: `Error encountered.`, data: error.message })
                 })
         })
         .catch(error => {
@@ -47,5 +47,22 @@ const createUser = (req, res)=>{
         })
 }
 
+const deleteUser= (req,res)=>{
+    User.findByPk(req.params.id)
+        .then((result)=>{
+            if(result){
+                return result.destroy()
+                    .then((result) => {
+                        res.json({ message: `User has been delete.`, data: result})
+                })
+        } else {
+            res.status(404).json({ message: `No user found.`})
+        }
+    })
+    .catch(error => {
+        res.status(500).json({ message: `Error encountered`, data: error.message })
+    })   
+}
+
                 
-module.exports = {findUserbyPk, findAllUsers, createUser}
+module.exports = {findUserbyPk, findAllUsers, createUser, deleteUser}
