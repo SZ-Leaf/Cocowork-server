@@ -20,3 +20,26 @@ const ClosedSpace = ClosedSpaceModel (sequelize, DataTypes)
 const SalleReunion = SalleReunionModel (sequelize, DataTypes)
 const Reservation = ReservationModel (sequelize, DataTypes)
 const Message = MessageModel (sequelize, DataTypes)
+
+sequelize.sync()
+    .then(() => {
+        console.log('Database and tables synced successfully.');
+    })
+    .catch((error) => {
+        console.error('Error syncing database and tables:', error);
+    });
+
+sequelize.authenticate()
+    .then(() => console.log('La connexion à la base de données a bien été établie.'))
+    .catch(error => console.error(`Impossible de se connecter à la base de données ${error}`))
+
+module.exports = {
+    Role,
+    User,
+    Cowork,
+    ClosedSpace,
+    SalleReunion,
+    Reservation,
+    Message,
+    sequelize
+};
