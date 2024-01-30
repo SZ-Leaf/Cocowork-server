@@ -17,9 +17,11 @@ app.get('/', function (req, res) {
 });
 
 const userRouter = require('./routes/userRoutes')
+const salleReunionrouter = require('./routes/salleReunionRoutes')
 
 app.use(cors());
 
+app.use('/api/salles-reunion/', salleReunionrouter)
 app.use('/api/users',userRouter)
 
 app.listen(port, () => console.log(`App Running on : http://localhost:${port}`));
