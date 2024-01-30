@@ -21,8 +21,13 @@ const SalleReunion = SalleReunionModel (sequelize, DataTypes)
 const Reservation = ReservationModel (sequelize, DataTypes)
 const Message = MessageModel (sequelize, DataTypes)
 
+
+
 sequelize.sync({force: true})
-    .then(() => {
+    .then(async() => {
+        await setRoles(Role)
+        await setUsers(User)
+        await setCoworkings(Cowork)
         console.log('Database and tables synced successfully.');
     })
     .catch((error) => {
