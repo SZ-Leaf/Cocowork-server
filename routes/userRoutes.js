@@ -6,8 +6,8 @@ const {login} = require('../controllers/authControllers')
 
 router 
     .route('/')
-    .get(findAllUsers)
-    .post(createUser)
+    // .get(findAllUsers)
+    // .post(createUser)
 
 router
     .route('/login')
@@ -15,8 +15,8 @@ router
 
 router
     .route('/:id')
-    .get(findUserByPk)
-    .put(updateUser)
-    .delete(deleteUser)
+    // .get(findUserByPk)
+    // .put(updateUser)
+    // .delete(deleteUser)
 
 module.exports = router

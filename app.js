@@ -16,6 +16,10 @@ app.get('/', function (req, res) {
    res.send('Cocowork API, Hello!');
 });
 
+const userRouter = require('./routes/userRoutes')
+
 app.use(cors());
+
+app.use('/api/users',userRouter)
 
 app.listen(port, () => console.log(`App Running on : http://localhost:${port}`));

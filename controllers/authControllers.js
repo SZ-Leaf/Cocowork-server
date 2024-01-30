@@ -10,11 +10,13 @@ const rolesHierarchy = {
 
 const login = (req, res) => {
    // A. On vérifie que l'utilisateur qui tente de se connecter existe bel et bien dans notre BDD
-   User.scope('withPassword').findOne({ where: { username: req.body.username } })
+   User.scope('withPassword').findOne({ where: { email: req.body.email } })
       .then((result) => {
+         // console.log("test");
          // B. Si l'utilisateur n'existe pas, on renvoie une réponse erreur Client
          if (!result) {
-            return res.status(404).json({ message: `Username does not exist.` })
+            console.log("erreureee");
+            return res.status(404).json({ message: `User does not exist.` })
          }
 
          return bcrypt.compare(req.body.password, result.password)
