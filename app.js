@@ -18,4 +18,6 @@ app.get('/', function (req, res) {
 
 app.use(cors());
 
+app.use('/images', express.static(__dirname + '/images'));
+
 app.listen(port, () => console.log(`App Running on : http://localhost:${port}`));
