@@ -27,7 +27,52 @@ const findMessageByPk = (req, res) => {
         })
 }
 
+// const createMessage = (req, res) => {
+//     User.findOne({ where: { id: req.id} })
+//         .then(user => {
+//             if(!user){
+//                 return res.status(404).json({message:`User has not been found.`})
+//             }
+//             const newMessage = { ...req.body, UserId:user.id }
+
+//             Message.create(newMessage)
+//                 .then((message) => {
+//                     res.status(201).json({ message: 'Message has been created.', data: message })
+//                 })
+//                 .catch((error) => {
+//                 if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
+//                     return res.status(400).json({ message: error.message })
+//                 }
+//                 res.status(500).json({ message: `Message can't be created.`, data: error.message })
+//             })
+//         })
+// }
+
 const createMessage = (req, res) => {
+<<<<<<< HEAD
+    if (!req.id) {
+        return res.status(400).json({ message: 'User ID is missing in the request.' });
+    }
+
+    User.findOne({ where: { id: req.id } })
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ message: 'User has not been found.' });
+            }
+
+            const newMessage = { ...req.body, UserId: user.id };
+
+            Message.create(newMessage)
+                .then(message => {
+                    res.status(201).json({ message: 'Message has been created.', data: message });
+                })
+                .catch(error => {
+                    if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
+                        return res.status(400).json({ message: error.message });
+                    }
+                    res.status(500).json({ message: `Message can't be created.`, data: error.message });
+                });
+=======
     const newMessage = { ...req.body, UserId: req.userId }
     console.log(req.userId );
     Message.create(newMessage)
@@ -36,8 +81,13 @@ const createMessage = (req, res) => {
         })
         .catch((error) =>{
             res.status(500).json({ message: `Could not create message`, data: error.message });
+>>>>>>> bebb2936500f188aa9c0333aa8d7c9917215a595
         })
-}
+        .catch(error => {
+            res.status(500).json({ data: error.message });
+        });
+};
+
 
 const updateMessage = (req, res) => {
     Message.findByPk(req.params.id)
