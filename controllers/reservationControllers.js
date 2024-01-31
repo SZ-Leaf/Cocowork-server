@@ -1,7 +1,9 @@
-const { Reservation, User } = require('../db/sequelizeSetup')
+const { Reservation, User, MeetingRoom } = require('../db/sequelizeSetup')
 
 const findAllReservations = (req, res) => {
-    Reservation.findAll()
+    Reservation.findAll({ 
+        include: [User, MeetingRoom]
+     })
        .then((result) => {
           res.json(result);
        }).catch((err) => {

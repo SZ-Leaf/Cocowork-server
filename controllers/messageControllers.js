@@ -2,7 +2,7 @@ const { Message, User } = require('../db/sequelizeSetup')
 const {UniqueConstraintError, ValidationError} = require ('sequelize')
 
 const findAllMessages = (req, res) => {
-    Message.findAll()
+    Message.findAll({ include: User })
        .then((result) => {
           res.json(result);
        }).catch((err) => {

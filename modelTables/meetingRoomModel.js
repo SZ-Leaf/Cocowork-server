@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
-   return sequelize.define('Meeting Room', {
+   return sequelize.define('MeetingRooms', {
       name:{
          type: DataTypes.STRING,
          allowNull: false,
@@ -8,10 +8,12 @@ module.exports = (sequelize, DataTypes) => {
                msg: "Nom de salle existent."
          },
       },
-      // image:{
-      //    type: DataTypes.image,
-      //    allowNull: false,
-      // },
+
+      imageUrl:{
+         type: DataTypes.image,
+         allowNull: false,
+      },
+
       description: {
          type: DataTypes.STRING,
          allowNull: false,
@@ -22,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
             }
          }
       },
+      
       price: {
          type: DataTypes.INTEGER,
          allowNull: false,

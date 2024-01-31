@@ -1,4 +1,4 @@
-const { MeetingRoom } = require('../db/sequelizeSetup')
+const { MeetingRoom, User } = require('../db/sequelizeSetup')
 
 const findAllMeetingRooms = (req, res) => {
     MeetingRoom.findAll()
@@ -27,6 +27,7 @@ const findMeetingRoomByPk = (req, res) => {
 
 const createMeetingRoomWithImg = (req, res) => {
     User.findOne({ where: { username: req.username } })
+    console.log(User)
     .then(user => {
         if (!user) {
             return res.status(404).json({ message: `User has not been found.` })
@@ -54,7 +55,7 @@ const updateMeetingRoomWithImg = (req, res) => {
         .then ((result) =>{
             if (result){
                 console.log(result)
-                return result.update({...req.body, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`})
+                return result.update({ ...req.body, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` })
                 .then (() => {
                     res.status(201).json({ message: 'Meeting room has been updated.', data: result })
                 }) 
