@@ -18,10 +18,14 @@ app.get('/', function (req, res) {
 
 const userRouter = require('./routes/userRoutes')
 const meetingRouter = require('./routes/meetingRoomRoutes')
+const messageRouter = require('./routes/messageRoutes')
+const reservationRouter = require('./routes/reservationRoutes')
 
 app.use(cors());
 
-app.use('/api/salles-reunion/', meetingRouter)
-app.use('/api/users',userRouter)
+app.use('/api/meetingRooms/', meetingRouter)
+app.use('/api/users', userRouter)
+app.use('/api/messages', messageRouter)
+app.use('./api/reservations', reservationRouter)
 
 app.listen(port, () => console.log(`App Running on : http://localhost:${port}`));
