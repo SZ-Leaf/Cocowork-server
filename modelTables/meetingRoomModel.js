@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
                msg: 'Price cannot be null.'
             }
          }
+      },
+      isdeleted: {
+         type : DataTypes.BOOLEAN,
+         defaultValue: false,
       }
    })
 

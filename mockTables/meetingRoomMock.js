@@ -15,7 +15,7 @@ const meetingRoom = [
       id: 3,
       name: "Salle 3",
       description: "Description de la salle 3.",
-      price: 200
+      price: 200,
    },
 ];
  
