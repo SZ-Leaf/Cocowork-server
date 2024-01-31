@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
-   return sequelize.define('Meeting Room', {
+   return sequelize.define('MeetingRooms', {
       name:{
          type: DataTypes.STRING,
          allowNull: false,
@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
             }
          }
       },
+      
       price: {
          type: DataTypes.INTEGER,
          allowNull: false,
