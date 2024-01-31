@@ -26,7 +26,7 @@ const findMessageByPk = (req, res) => {
 }
 
 const createMessage = (req, res) => {
-    User.findOne({where:{email:req.email}})
+    User.findOne({ where: { id: req.id} })
         .then(user => {
             if(!user){
                 return res.status(404).json({message:`User has not been found.`})
