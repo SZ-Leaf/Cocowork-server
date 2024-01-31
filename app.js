@@ -11,6 +11,8 @@ const port = 3005;
 app.use(express.json());
 app.use(morgan('dev'));
 
+app.use('/images', express.static(__dirname + '/images'));
+
 // respond with "Cocowork API, Hello!" when a GET request is made to the homepage
 app.get('/', function (req, res) {
    res.send('Cocowork API, Hello!');
@@ -23,6 +25,7 @@ const reservationRouter = require('./routes/reservationRoutes')
 const coworkRouter = require('./routes/coworkRoutes')
 
 app.use(cors());
+
 
 app.use('/api/cowork', coworkRouter)
 app.use('/api/meetingRooms', meetingRouter)

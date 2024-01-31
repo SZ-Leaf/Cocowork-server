@@ -1,4 +1,5 @@
 const { MeetingRoom, User } = require('../db/sequelizeSetup')
+const { UniqueConstraintError, ValidationError, QueryTypes } = require('sequelize')
 
 const findAllMeetingRooms = (req, res) => {
     MeetingRoom.findAll()
@@ -26,14 +27,36 @@ const findMeetingRoomByPk = (req, res) => {
 }
 
 const createMeetingRoomWithImg = (req, res) => {
-    const newMeetingRoom = { ...req.body, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }
-    MeetingRoom.create(newMeetingRoom)
-    .then((meetingRoom) => {
-        res.status(201).json({ message: 'Meeting Room Created', data: meetingRoom })
-     })
-     .catch((error) => {
-        res.status(500).json({ message: `Could not create Meeting Room`, data: error.message })
-     })
+    // const newMeetingRoom = { ...req.body, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }
+    // MeetingRoom.create(newMeetingRoom)
+    // .then((meetingRoom) => {
+    //     res.status(201).json({ message: 'Meeting Room Created', data: meetingRoom })
+    //  })
+    //  .catch((error) => {
+    //     res.status(500).json({ message: `Could not create Meeting Room`, data: error.message })
+    //  })
+    
+    // console.log(req.file); // Log the uploaded file
+    // console.log(req.body); // Log the request body
+    try {
+        if (!req.file) {
+            throw new Error('No image provided');
+        }
+        const newMeetingRoom = {
+            ...req.body,
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        };
+
+        MeetingRoom.create(newMeetingRoom)
+            .then((meetingRoom) => {
+                res.status(201).json({ message: 'Meeting Room Created', data: meetingRoom });
+            })
+            .catch((error) => {
+                res.status(500).json({ message: `Could not create Meeting Room`, data: error.message });
+            });
+    } catch (error) {
+        res.status(400).json({ message: 'Bad Request', data: error.message });
+    }
 } 
 
 const updateMeetingRoomWithImg = (req, res) => {
