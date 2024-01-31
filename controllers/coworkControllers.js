@@ -13,7 +13,7 @@ const findAllCoworks = (req, res) => {
 const findCoworkByPk = (req, res) => {
     Cowork.findByPk(parseInt(req.params.id))
         .then((result) => {
-            console.log(result)
+            // console.log(result)
             if (result) {
                 res.json({ message: 'Coworking has been found..', data: result })
             } else {
