@@ -1,9 +1,11 @@
+const { token } = require('morgan');
 const { Message, User } = require('../db/sequelizeSetup')
 const {UniqueConstraintError, ValidationError} = require ('sequelize')
 
 const findAllMessages = (req, res) => {
     Message.findAll({ include: User })
        .then((result) => {
+          console.log(result);
           res.json(result);
        }).catch((err) => {
           res.status(500).json(err.message)
@@ -26,23 +28,14 @@ const findMessageByPk = (req, res) => {
 }
 
 const createMessage = (req, res) => {
-    User.findOne({ where: { id: req.id} })
-        .then(user => {
-            if(!user){
-                return res.status(404).json({message:`User has not been found.`})
-            }
-            const newMessage = { ...req.body, UserId:user.id }
-
-            Message.create(newMessage)
-                .then((message) => {
-                    res.status(201).json({ message: 'Message has been created.', data: message })
-                })
-                .catch((error) => {
-                if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
-                    return res.status(400).json({ message: error.message })
-                }
-                res.status(500).json({ message: `Message can't be created.`, data: error.message })
-            })
+    const newMessage = { ...req.body, UserId: req.userId }
+    console.log(req.userId );
+    Message.create(newMessage)
+        .then(message => {
+            res.status(201).json({ message: 'Message Created', data: message });
+        })
+        .catch((error) =>{
+            res.status(500).json({ message: `Could not create message`, data: error.message });
         })
 }
 
@@ -82,7 +75,6 @@ const deleteMessage = (req, res) => {
             res.status(500).json({ message: 'Error encountered', data: error.message })
 
         })
-    
 }
 
 module.exports = {findAllMessages, findMessageByPk, createMessage, updateMessage, deleteMessage}

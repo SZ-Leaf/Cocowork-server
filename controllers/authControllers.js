@@ -9,11 +9,8 @@ const rolesHierarchy = {
 }
 
 const login = (req, res) => {
-   // A. On vérifie que l'utilisateur qui tente de se connecter existe bel et bien dans notre BDD
    User.scope('withPassword').findOne({ where: { email: req.body.email } })
       .then((result) => {
-         // console.log("test");
-         // B. Si l'utilisateur n'existe pas, on renvoie une réponse erreur Client
          if (!result) {
             console.log("erreureee");
             return res.status(404).json({ message: `User does not exist.` })
@@ -39,5 +36,26 @@ const login = (req, res) => {
       })
 }
 
+const protect = (req, res, next) => {
+   if (!req.headers.authorization) {
+      return res.status(401).json({ message: `You are not logged in.` })
+  }
 
-module.exports = { login }
+  const token = req.headers.authorization.split(' ')[1]
+
+   if(token){
+      try {
+         const decoded = jwt.verify(token, SECRET_KEY);
+         req.username = decoded.data;
+         req.userId = decoded.id;
+         next()
+      } catch (error) {
+         return res.status(403).json({ message: `Invalid token.` })
+      }
+   }
+}
+
+
+
+
+module.exports = { login, protect }

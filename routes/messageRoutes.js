@@ -1,16 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const { findAllMessages, createMessage, findMessageByPk, updateMessage, deleteMessage } = require('../controllers/messageControllers')
+const { protect } = require('../controllers/authControllers')
 
 router 
     .route('/')
     .get(findAllMessages)
-    .post(createMessage)
+    .post(protect, createMessage)
 
 router
     .route('/:id')
     .get(findMessageByPk)
-    .put(updateMessage)
-    .delete(deleteMessage)
+    .put(protect, updateMessage)
+    .delete(protect, deleteMessage)
 
 module.exports = router

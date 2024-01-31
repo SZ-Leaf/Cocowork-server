@@ -13,10 +13,9 @@ module.exports = (sequelize, DataTypes) => {
                       // name value validation
                validate: {
                 len: {
-
                     // max lengh 500 for message's content
                     msg: "Message can't be more than 500 characters",
-                    args: [null, 500]
+                    args: [1, 500]
                 }
             },
         },

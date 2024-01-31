@@ -2,7 +2,7 @@ const { MeetingRoom, User } = require('../db/sequelizeSetup')
 const { UniqueConstraintError, ValidationError, QueryTypes } = require('sequelize')
 
 const findAllMeetingRooms = (req, res) => {
-    MeetingRoom.findAll()
+    MeetingRoom.findAll( {where: {isdeleted: false,},} )
         .then((results) => {
             res.json(results)
         })
@@ -82,23 +82,25 @@ const updateMeetingRoomWithImg = (req, res) => {
 
 const deleteMeetingRoom = (req, res) => {
     MeetingRoom.findByPk(req.params.id)
-        .then ((result)=>{
+        .then((result) => {
             if (result) {
-                return result.destroy()
-                    .then((result) => {
-                        res.json({ message: `Meeting room has been delete.`, data: result})
-                    })
-                    
-            } else {
-                res.status(404).json({ message: `No Meeting room has been found`})
-            }
+                // Instead of using destroy, update the isdeleted attribute
+                result.isdeleted = true;
 
+                return result.save()
+                    .then((updatedResult) => {
+                        res.json({ message: 'Meeting room has been soft deleted.', data: updatedResult });
+                    })
+                    .catch((updateError) => {
+                        res.status(500).json({ message: 'Error updating meeting room.', data: updateError.message });
+                    });
+            } else {
+                res.status(404).json({ message: 'No Meeting room has been found.' });
+            }
         })
         .catch((error) => {
-            res.status(500).json({ message: `Error encountered.`, data: error.message })
-
-        })
-    
+            res.status(500).json({ message: 'Error encountered.', data: error.message });
+        });
 }
 
 
