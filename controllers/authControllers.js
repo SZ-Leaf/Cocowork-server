@@ -55,7 +55,50 @@ const protect = (req, res, next) => {
    }
 }
 
+const restrictToOwnUser = (model) => {
+   return (req, res, next) => {
+      User.findByPk(req.userId)
+         .then(user => {
+            if (!user) {
+               return res.status(404).json({ message: `Pas d'utilisateur trouvé.` });
+            }
+
+            Role.findByPk(user.RoleId)
+               .then(role => {
+                  if (!role) {
+                     return res.status(500).json({ message: `Role not found for the user.` });
+                  }
+
+                  const roleLabel = role.label;
+                  if (rolesHierarchy[roleLabel] && rolesHierarchy[roleLabel].includes('admin')) {
+                     return next();
+                  }
+
+                  model.findByPk(req.params.id)
+                     .then(resource => {
+                           if (!resource) {
+                              return res.status(404).json({ message: `La ressource n'existe pas.` });
+                           }
+
+                           if (user.id === resource.UserId) {
+                              return next();
+                           } else {
+                              return res.status(403).json({ message: `Vous n'êtes pas l'auteur de la ressource.` });
+                           }
+                     })
+                     .catch(error => {
+                           return res.status(500).json({ message: `Error finding resource: ${error.message}` });
+                     });
+               })
+               .catch(error => {
+                  return res.status(500).json({ message: `Error finding user role: ${error.message}` });
+               });
+         })
+         .catch(error => {
+            return res.status(500).json({ message: `Error finding user: ${error.message}` });
+         });
+   };
+};
 
 
-
-module.exports = { login, protect }
+module.exports = { login, protect, restrictToOwnUser }
