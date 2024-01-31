@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
                msg: "Nom de salle existent."
          },
       },
-      image:{
+      imageUrl:{
          type: DataTypes.STRING,
          // allowNull: false,
       },
