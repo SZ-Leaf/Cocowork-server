@@ -25,26 +25,56 @@ const findMessageByPk = (req, res) => {
         })
 }
 
+// const createMessage = (req, res) => {
+//     User.findOne({ where: { id: req.id} })
+//         .then(user => {
+//             if(!user){
+//                 return res.status(404).json({message:`User has not been found.`})
+//             }
+//             const newMessage = { ...req.body, UserId:user.id }
+
+//             Message.create(newMessage)
+//                 .then((message) => {
+//                     res.status(201).json({ message: 'Message has been created.', data: message })
+//                 })
+//                 .catch((error) => {
+//                 if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
+//                     return res.status(400).json({ message: error.message })
+//                 }
+//                 res.status(500).json({ message: `Message can't be created.`, data: error.message })
+//             })
+//         })
+// }
+
 const createMessage = (req, res) => {
-    User.findOne({ where: { id: req.id} })
+    if (!req.id) {
+        return res.status(400).json({ message: 'User ID is missing in the request.' });
+    }
+
+    User.findOne({ where: { id: req.id } })
         .then(user => {
-            if(!user){
-                return res.status(404).json({message:`User has not been found.`})
+            if (!user) {
+                return res.status(404).json({ message: 'User has not been found.' });
             }
-            const newMessage = { ...req.body, UserId:user.id }
+
+            const newMessage = { ...req.body, UserId: user.id };
 
             Message.create(newMessage)
-                .then((message) => {
-                    res.status(201).json({ message: 'Message has been created.', data: message })
+                .then(message => {
+                    res.status(201).json({ message: 'Message has been created.', data: message });
                 })
-                .catch((error) => {
-                if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
-                    return res.status(400).json({ message: error.message })
-                }
-                res.status(500).json({ message: `Message can't be created.`, data: error.message })
-            })
+                .catch(error => {
+                    if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
+                        return res.status(400).json({ message: error.message });
+                    }
+                    res.status(500).json({ message: `Message can't be created.`, data: error.message });
+                });
         })
-}
+        .catch(error => {
+            res.status(500).json({ data: error.message });
+        });
+};
+
 
 const updateMessage = (req, res) => {
     Message.findByPk(req.params.id)
