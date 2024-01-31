@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = require('../secret/secretkey')
 const {UniqueConstraintError, ValidationError } = require('sequelize')
+const sendEmail = require('../middleware/nodeMailerConfig')
 
 const findAllUsers = (req, res) => {
    User.findAll()
@@ -29,22 +30,35 @@ const findUserbyPk = (req, res) =>{
 
 const createUser = (req, res)=>{
     bcrypt.hash(req.body.password,10)
-        .then((hash)=> {
-            User.create({...req.body, password:hash, RoleId: "2" })
-                .then ((user)=> {
-                    user.password = ""
-                    res.status(201).json ({message:`User has been created.`, data: user})
-                })
-                .catch((error) => {
-                    if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
-                        return res.status(400).json({ message: error.message })
-                    }
-                    res.status(500).json({ message: `Error encountered.`, data: error.message })
-                })
-        })
-        .catch(error => {
-            console.log(error.message)
-        })
+      .then((hash)=> {
+         User.create({...req.body, password:hash, RoleId: "2" })
+               .then ((user)=> {
+                  user.password = ""
+                  res.status(201).json ({message:`User has been created.`, data: user})
+
+                  const recipientEmail = 'cocoworka@gmail.com'; // Replace with your email address
+                  const emailSubject = 'New User Created';
+                  const emailText = `A new user has been created.\n\nUser Details:\nName: ${user.name}
+                  \n Lasname: ${user.lastname}
+                  \n Email: ${user.email}
+                  \n Address: ${user.address}
+                  \n PostCode: ${user.postcode}
+                  \n Town: ${user.town}`;
+
+                  sendEmail(recipientEmail, emailSubject, emailText)
+                        .then(info => console.log('Email sent:', info))
+                        .catch(error => console.error('Error sending email:', error));
+               })
+               .catch((error) => {
+                  if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
+                     return res.status(400).json({ message: error.message })
+                  }
+                  res.status(500).json({ message: `Error encountered.`, data: error.message })
+               })
+      })
+      .catch(error => {
+         console.log(error.message)
+      })
 }
 
 const deleteUser= (req,res)=>{
