@@ -25,7 +25,8 @@ const login = (req, res) => {
                      return res.status(401).json({ message: `Password incorrect.` })
                   }
                   const token = jwt.sign({
-                     data: result.username
+                     id: result.id,
+                     email: result.email
                   }, SECRET_KEY, { expiresIn: '10h' });
 
                   // Possibilité de stocker le jwt dans un cookie côté client

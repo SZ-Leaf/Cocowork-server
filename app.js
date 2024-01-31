@@ -23,7 +23,7 @@ const reservationRouter = require('./routes/reservationRoutes')
 
 app.use(cors());
 
-app.use('/api/meetingRooms/', meetingRouter)
+app.use('/api/meetingRooms', meetingRouter)
 app.use('/api/users', userRouter)
 app.use('/api/messages', messageRouter)
 app.use('./api/reservations', reservationRouter)

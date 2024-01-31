@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { findAllMeetingRooms, createMeetingRoomWithImg, findMeetingRoomByPk, updateMeetingRoomWithImg, deleteMeetingRoom } = require('../controllers/salleReunionControllers')
+const { findAllMeetingRooms, createMeetingRoomWithImg, findMeetingRoomByPk, updateMeetingRoomWithImg, deleteMeetingRoom } = require('../controllers/meetingRoomControllers')
 
 
 router 

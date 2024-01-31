@@ -1,4 +1,5 @@
-const { Message } = require('../db/sequelizeSetup')
+const { Message, User } = require('../db/sequelizeSetup')
+const {UniqueConstraintError, ValidationError} = require ('sequelize')
 
 const findAllMessages = (req, res) => {
     Message.findAll()
@@ -25,7 +26,7 @@ const findMessageByPk = (req, res) => {
 }
 
 const createMessage = (req, res) => {
-    User.findOne({ where: { username: req.username} })
+    User.findOne({where:{email:req.email}})
         .then(user => {
             if(!user){
                 return res.status(404).json({message:`User has not been found.`})

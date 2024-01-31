@@ -1,4 +1,4 @@
-const { Reservation } = require('../db/sequelizeSetup')
+const { Reservation, User } = require('../db/sequelizeSetup')
 
 const findAllReservations = (req, res) => {
     Reservation.findAll()
