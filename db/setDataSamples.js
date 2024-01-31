@@ -1,7 +1,7 @@
 const mockUsers = require('../mockTables/userMock')
 const mockCoworks = require('../mockTables/coworkMock')
 const mockClosedSpaces = require('../mockTables/closedSpacesMock')
-const mockSallesReunion = require('../mockTables/salleReunionMock')
+const mockMeetingRoom = require('../mockTables/meetingRoomMock')
 
 const bcrypt = require('bcrypt')
 
@@ -40,10 +40,10 @@ const setClosedSpaces = (ClosedSpace) => {
    }))
 }
 
-const setSallesReunion = (SalleReunion) => {
-   return Promise.all(mockSallesReunion.map(element => {
-      const newSalleReunion = {...element}
-      return SalleReunion.create(newSalleReunion)
+const setMeetingRooms = (MeetingRoom) => {
+   return Promise.all(mockMeetingRoom.map(element => {
+      const newMeetingRoom = {...element}
+      return MeetingRoom.create(newMeetingRoom)
          .then(() => {}).catch((error) => {
             console.log(error.message)
          });
@@ -67,4 +67,4 @@ const setRoles = async (Role) => {
 };
 
 
-module.exports = {setCoworkings, setUsers, setRoles, setClosedSpaces, setSallesReunion}
+module.exports = {setCoworkings, setUsers, setRoles, setClosedSpaces, setMeetingRooms}

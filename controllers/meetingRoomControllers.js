@@ -1,7 +1,7 @@
-const { SalleReunion, sequelize} = require('../db/sequelizeSetup')
+const { MeetingRoom } = require('../db/sequelizeSetup')
 
-const findAllSalleReunions = (req, res) => {
-    SalleReunion.findAll()
+const findAllMeetingRooms = (req, res) => {
+    MeetingRoom.findAll()
         .then((results) => {
             res.json(results)
         })
@@ -10,14 +10,14 @@ const findAllSalleReunions = (req, res) => {
         })
 }
 
-const findSalleReunionByPk = (req, res) => {
-    SalleReunion.findByPk(parseInt(req.params.id))
+const findMeetingRoomByPk = (req, res) => {
+    MeetingRoom.findByPk(parseInt(req.params.id))
         .then((result) => {
             console.log(result)
             if (result) {
-                res.json({ message: 'Salle de Reunion has been found.', data: result })
+                res.json({ message: 'Meeting room has been found.', data: result })
             } else {
-                res.status(404).json({ message: `No Salle de reunion found.` })
+                res.status(404).json({ message: `No Meeting room found.` })
             }
         })
         .catch((error) => {
@@ -25,23 +25,23 @@ const findSalleReunionByPk = (req, res) => {
         })
 }
 
-const createSalleReunionWithImg = (req, res) => {
+const createMeetingRoomWithImg = (req, res) => {
     User.findOne({ where: { username: req.username } })
     .then(user => {
         if (!user) {
             return res.status(404).json({ message: `User has not been found.` })
         }
-        const newSalleReunion = { ...req.body, UserId: user.id, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }
+        const newMeetingRoom = { ...req.body, UserId: user.id, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }
 
-        SalleReunion.create(newSalleReunion)
+        MeetingRoom.create(newMeetingRoom)
             .then((result) => {
-                res.status(201).json({ message: 'Salle de reunion has been created', data: result })
+                res.status(201).json({ message: 'Meeting room has been created', data: result })
             })
             .catch((error) => {
                 if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
                     return res.status(400).json({ message: error.message })
                 }
-                res.status(500).json({ message: `Salle de reunion can't be create`, data: error.message })
+                res.status(500).json({ message: `Meeting room can't be create`, data: error.message })
             })
     })
     .catch(error => {
@@ -49,17 +49,17 @@ const createSalleReunionWithImg = (req, res) => {
     })
 } 
 
-const updateSalleReunionWithImg = (req, res) => {
-    SalleReunion.findByPk(req.params.id)
+const updateMeetingRoomWithImg = (req, res) => {
+    MeetingRoom.findByPk(req.params.id)
         .then ((result) =>{
             if (result){
                 console.log(result)
                 return result.update({...req.body, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`})
                 .then (() => {
-                    res.status(201).json({ message: 'SalleReunion has been updated.', data: result })
+                    res.status(201).json({ message: 'Meeting room has been updated.', data: result })
                 }) 
         } else {
-            res.status(404).json({ message: `No salle de reunion can't be update.`, data: error.message })
+            res.status(404).json({ message: `No Meeting room can't be update.`, data: error.message })
         } 
     })
     .catch(error => {
@@ -70,17 +70,17 @@ const updateSalleReunionWithImg = (req, res) => {
     })
 }
 
-const deleteSalleReunion = (req, res) => {
-    SalleReunion.findByPk(req.params.id)
+const deleteMeetingRoom = (req, res) => {
+    MeetingRoom.findByPk(req.params.id)
         .then ((result)=>{
             if (result) {
                 return result.destroy()
                     .then((result) => {
-                        res.json({ message: `Salle de reunion has been delete.`, data: result})
+                        res.json({ message: `Meeting room has been delete.`, data: result})
                     })
                     
             } else {
-                res.status(404).json({ message: `No Salle de reunion has been found`})
+                res.status(404).json({ message: `No Meeting room has been found`})
             }
 
         })
@@ -92,4 +92,4 @@ const deleteSalleReunion = (req, res) => {
 }
 
 
-module.exports= {findAllSalleReunions, findSalleReunionByPk, createSalleReunionWithImg, updateSalleReunionWithImg, deleteSalleReunion}
+module.exports= {findAllMeetingRooms, findMeetingRoomByPk, createMeetingRoomWithImg, updateMeetingRoomWithImg, deleteMeetingRoom}
