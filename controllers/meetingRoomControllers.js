@@ -13,7 +13,7 @@ const findAllMeetingRooms = (req, res) => {
 const findMeetingRoomByPk = (req, res) => {
     MeetingRoom.findByPk(parseInt(req.params.id))
         .then((result) => {
-            console.log(result)
+            // console.log(result)
             if (result) {
                 res.json({ message: 'Meeting room has been found.', data: result })
             } else {
@@ -26,34 +26,21 @@ const findMeetingRoomByPk = (req, res) => {
 }
 
 const createMeetingRoomWithImg = (req, res) => {
-    User.findOne({ where: { username: req.username } })
-    .then(user => {
-        if (!user) {
-            return res.status(404).json({ message: `User has not been found.` })
-        }
-        const newMeetingRoom = { ...req.body, UserId: user.id, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }
-
-        MeetingRoom.create(newMeetingRoom)
-            .then((result) => {
-                res.status(201).json({ message: 'Meeting room has been created', data: result })
-            })
-            .catch((error) => {
-                if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
-                    return res.status(400).json({ message: error.message })
-                }
-                res.status(500).json({ message: `Meeting room can't be create`, data: error.message })
-            })
-    })
-    .catch(error => {
-        res.status(500).json(error.message)
-    })
+    const newMeetingRoom = { ...req.body, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }
+    MeetingRoom.create(newMeetingRoom)
+    .then((meetingRoom) => {
+        res.status(201).json({ message: 'Meeting Room Created', data: meetingRoom })
+     })
+     .catch((error) => {
+        res.status(500).json({ message: `Could not create Meeting Room`, data: error.message })
+     })
 } 
 
 const updateMeetingRoomWithImg = (req, res) => {
     MeetingRoom.findByPk(req.params.id)
         .then ((result) =>{
             if (result){
-                console.log(result)
+                // console.log(result)
                 return result.update({...req.body, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`})
                 .then (() => {
                     res.status(201).json({ message: 'Meeting room has been updated.', data: result })
