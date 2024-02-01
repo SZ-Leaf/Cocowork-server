@@ -1,12 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
 
    return sequelize.define('Reservations', {
-      start_date: {
+      date: {
          type: DataTypes.DATE,
          allowNull: false,
       },
-      end_date: {
-         type: DataTypes.DATE,
+      duration: {
+         type: DataTypes.ENUM('half-day', 'full-day'),
          allowNull: false,
       },
       status: {
