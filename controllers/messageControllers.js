@@ -78,7 +78,6 @@ const createMessage = (req, res) => {
         });
 };
 
-
 const updateMessage = (req, res) => {
     Message.findByPk(req.params.id)
         .then ((result) =>{

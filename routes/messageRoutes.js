@@ -12,7 +12,7 @@ router
 router
     .route('/:id')
     .get(findMessageByPk)
-    .put(protect, restrictToOwnUser(Message), updateMessage)
-    .delete(protect, restrictToOwnUser(Message), deleteMessage)
+    // .put(protect, restrictToOwnUser(Message), updateMessage)
+    // .delete(protect, restrictToOwnUser(Message), deleteMessage)
 
 module.exports = router

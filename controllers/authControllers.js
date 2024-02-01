@@ -47,9 +47,9 @@ const protect = (req, res, next) => {
    if(token){
       try {
          const decoded = jwt.verify(token, SECRET_KEY);
-         req.username = decoded.data;
          req.userId = decoded.id;
          req.email = decoded.email;
+         req.role = decoded.role
          next()
       } catch (error) {
          return res.status(403).json({ message: `Invalid token.` })
@@ -81,8 +81,9 @@ const restrictToOwnUser = (model) => {
                            if (!resource) {
                               return res.status(404).json({ message: `La ressource n'existe pas.` });
                            }
-
-                           if (user.id === resource.UserId) {
+                           console.log(user.id);
+                           console.log(resource);
+                           if (user.id === resource.id) {
                               return next();
                            } else {
                               return res.status(403).json({ message: `Vous n'êtes pas l'auteur de la ressource.` });
@@ -118,11 +119,11 @@ const restrict = (roleParam) => {
             .then(user => {
                Role.findByPk(user.RoleId)
                   .then(userRole  => {
-                     console.log('userRole:', userRole);
+                     // console.log('userRole:', userRole);
                      
-                     console.log('role.label:', userRole.label);
-                     console.log('roleParam:', roleParam);
-                     console.log('rolesHierarchy:', rolesHierarchy);
+                     // console.log('role.label:', userRole.label);
+                     // console.log('roleParam:', roleParam);
+                     // console.log('rolesHierarchy:', rolesHierarchy);
                      
                      const userRoles = rolesHierarchy[userRole.label];
 

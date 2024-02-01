@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { findAllReservations, createReservation, findReservationByPk, updateReservation, deleteReservation } = require('../controllers/reservationControllers')
-const { protect, restrictToOwnUser } = require('../controllers/authControllers')
+const { findAllReservations, createReservation, findReservationByPk, updateReservation, deleteReservation, validateReservation, findAllValidReservations } = require('../controllers/reservationControllers')
+const { protect, restrictToOwnUser, restrict } = require('../controllers/authControllers')
 
 
 router 
@@ -10,9 +10,13 @@ router
     .post(protect, createReservation)
 
 router
+    .route('/valid')
+    .get(findAllValidReservations)
+
+router
     .route('/:id')
     .get(findReservationByPk)
-    .put(updateReservation)
-    .delete(deleteReservation)
+    .put(protect, restrict('admin') , validateReservation)
+    .delete(protect, restrict('admin'), deleteReservation)
 
 module.exports = router
