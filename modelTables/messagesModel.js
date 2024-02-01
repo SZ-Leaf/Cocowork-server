@@ -13,6 +13,20 @@ module.exports = (sequelize, DataTypes) => {
                     isEmail: true,
                 }
             },
+            phoneNumber:{
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    isNumeric: {
+                        msg: 'Le numéro de téléphone doit contenir uniquement des chiffres.'
+                    },
+                    isExactlyTenCharacters: function (value) {
+                        if (value !== null && value.toString().length !== 10) {
+                            throw new Error('Le numéro de téléphone doit contenir 10 chiffres.');
+                        }
+                    },
+                },
+            },
             title: {
                 type: DataTypes.STRING,
                 allowNull: false,
