@@ -6,7 +6,7 @@ const {UniqueConstraintError, ValidationError } = require('sequelize')
 const sendEmail = require('../middleware/nodeMailerConfig')
 
 const findAllUsers = (req, res) => {
-   User.findAll()
+   User.findAll( {where: {status: false,},})
       .then((result) => {
          res.json(result);
       }).catch((err) => {
@@ -110,6 +110,10 @@ const updateUser = (req, res) => {
          }
          res.status(500).json({ message: 'Error.', data: error.message })
       })
+}
+
+const validateUser = (req, res) => {
+
 }
                 
 module.exports = {findUserbyPk, findAllUsers, createUser, deleteUser, updateUser}

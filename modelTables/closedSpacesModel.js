@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
                     msg: "Name already taken."
                 },
             },
+            image: {
+                type: DataTypes.STRING,
+                allownull:false,
+
+            },
         }
     )
 }

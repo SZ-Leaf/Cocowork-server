@@ -23,6 +23,7 @@ const meetingRouter = require('./routes/meetingRoomRoutes')
 const messageRouter = require('./routes/messageRoutes')
 const reservationRouter = require('./routes/reservationRoutes')
 const coworkRouter = require('./routes/coworkRoutes')
+const closedSpaceRouter = require('./routes/closedSpaceRoutes')
 
 app.use(cors());
 
@@ -32,6 +33,7 @@ app.use('/api/meetingRooms', meetingRouter)
 app.use('/api/users', userRouter)
 app.use('/api/messages', messageRouter)
 app.use('/api/reservations', reservationRouter)
+app.use('./api/closedSpace', closedSpaceRouter)
 
 app.use('/images', express.static(__dirname + '/images'));
 
