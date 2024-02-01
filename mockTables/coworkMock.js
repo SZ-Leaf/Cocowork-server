@@ -2,13 +2,13 @@ const coworkings = [
    {
       id: 1,
       name: "Coworking 1",
-      img: 'https://i.ibb.co/6ZKx0g9/office-space-1744803-1280-1.jpg',
+      img: 'https://quoifaireabordeaux.com/wp-content/uploads/2021/09/316550683_675314273954541_7206433138902284287_n-1536x1024.webp',
       created: new Date()
    },
    {
       id: 2,
       name: "Coworking 2",
-      img: 'https://i.ibb.co/6ZKx0g9/office-space-1744803-1280-1.jpg',
+      img: 'https://mota-coworking.com/wp-content/uploads/2022/08/316550683_675314273954541_7206433138902284287_n-1230x640.jpg',
       created: new Date()
    },
    {
