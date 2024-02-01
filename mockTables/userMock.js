@@ -7,7 +7,7 @@ const users = [
     address:"2 rue Chevalier",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556792291",
+    phoneNumber: "0505050505",
     status:true,
     password:"voleur",
     RoleId:1
@@ -20,7 +20,7 @@ const users = [
     address: "35 Avenue de la République",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556461848",
+    phoneNumber: "0505050505",
     status:true,
     password: "ptitvoleur",
     RoleId:2
@@ -33,7 +33,7 @@ const users = [
     address: "41 Rue des Augustins",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556480088",
+    phoneNumber: "0505050505",
     status:true,
     password: "ptitvoleur",
     RoleId:2
@@ -46,7 +46,7 @@ const users = [
     address: "5 Cours Saint-Louis",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0557102050",
+    phoneNumber: "0505050505",
     status:true,
     password: "ptitvoleur",
     RoleId:2
@@ -59,7 +59,7 @@ const users = [
     address: "5 Rue des Bahutiers",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0557936363",
+    phoneNumber: "0505050505",
     status:true,
     password: "ptitvoleur",
     RoleId:2
@@ -72,7 +72,7 @@ const users = [
     address:"12 Quai Richelieu",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556918536",
+    phoneNumber: "0505050505",
     status:true,
     password:"ptitvoleur",
     RoleId:2
@@ -85,7 +85,7 @@ const users = [
     address: "73 Quai des Chartrons",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556050404",
+    phoneNumber: "0505050505",
     status:true,
     password: "ptitvoleur",
     RoleId:2
@@ -98,7 +98,7 @@ const users = [
     address: "36 Rue du Mirail",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556965244",
+    phoneNumber: "0505050505",
     status:true,
     password: "ptitvoleur",
     RoleId:2
@@ -111,7 +111,7 @@ const users = [
     address: "174 Rue du Jardin public",
     postcode: 33300,
     town: "Bordeaux",
-    phoneNumber: "0556520052",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -124,7 +124,7 @@ const users = [
     address: "15 Rue du Passage Saint-Georges",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556328847",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -137,7 +137,7 @@ const users = [
     address:"5 Place de la Victoire",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556790770",
+    phoneNumber: "0505050505",
     status:true,
     password:"voleur",
     RoleId:2
@@ -150,7 +150,7 @@ const users = [
     address: "2 Avenue Carnot",
     postcode: 33200,
     town: "Bordeaux",
-    phoneNumber: "0557512722",
+    phoneNumber: "0505050505",
     status:true,
     password: "ptitvoleur",
     RoleId:2
@@ -163,7 +163,7 @@ const users = [
     address: "2 Quai Louis XVIII",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556812990",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -176,7 +176,7 @@ const users = [
     address: "23 Rue Raze",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0977059510",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -189,7 +189,7 @@ const users = [
     address: "56 Rue du Hamel",
     postcode: 33800,
     town: "Bordeaux",
-    phoneNumber: "0556806298",
+    phoneNumber: "0505050505",
     status:true,
     password: "ptitvoleur",
     RoleId:2
@@ -202,7 +202,7 @@ const users = [
     address:"79 Rue Stehelin",
     postcode: 33200,
     town: "Bordeaux",
-    phoneNumber: "055683305",
+    phoneNumber: "0505050505",
     status:false,
     password:"voleur",
     RoleId:2
@@ -215,7 +215,7 @@ const users = [
     address: "11 Place du Parlement",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556893763",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -228,7 +228,7 @@ const users = [
     address: "270 Avenue de la Liberation Charles de Gaulle",
     postcode: 33110,
     town: "Le Bouscat",
-    phoneNumber: "0556810064",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -241,7 +241,7 @@ const users = [
     address: "34 Avenue Jean Jaures",
     postcode: 33600,
     town: "Pessac",
-    phoneNumber: "0556816705",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -254,7 +254,7 @@ const users = [
     address: "35 Avenue de la République",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556362915",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -267,7 +267,7 @@ const users = [
     address: "38 Rue des Remparts",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556390646",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -280,7 +280,7 @@ const users = [
     address: "3 Place du Marche Chartrons",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556917216",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -293,7 +293,7 @@ const users = [
     address: "104 Rue Frederic Sevene",
     postcode: 33004,
     town: "Talence",
-    phoneNumber: "0556922783",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
@@ -306,7 +306,7 @@ const users = [
     address: "269 rue Judaique",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0954160739",
+    phoneNumber: "0505050505",
     status:true,
     password: "ptitvoleur",
     RoleId:2
@@ -319,7 +319,7 @@ const users = [
     address: "18 place PeyBerland",
     postcode: 33000,
     town: "Bordeaux",
-    phoneNumber: "0556995900",
+    phoneNumber: "0505050505",
     status:false,
     password: "ptitvoleur",
     RoleId:2
