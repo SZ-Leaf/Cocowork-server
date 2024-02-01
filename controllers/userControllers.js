@@ -14,6 +14,15 @@ const findAllUsers = (req, res) => {
       });
 }
 
+const findAllValidUsers = (req, res) => {
+   User.findAll( {where: {status: true,},})
+      .then((result) => {
+         res.json(result);
+      }).catch((err) => {
+         res.status(500).json(err.message)
+      });
+}
+
 const findUserbyPk = (req, res) =>{
    User.findByPk((parseInt(req.params.id)))
       .then((result) => {
@@ -113,7 +122,24 @@ const updateUser = (req, res) => {
 }
 
 const validateUser = (req, res) => {
-
+   User.findByPk(req.params.id)
+      .then((result) => {
+         if (result) {
+            // Update the user's status to true
+            result.update({ status: true })
+               .then(() => {
+                  res.json({ message: 'User status updated successfully.' });
+               })
+               .catch((error) => {
+                  res.status(500).json({ message: 'Error updating user status.', data: error.message });
+               });
+         } else {
+               res.status(404).json({ message: `User not found.` })
+         }
+      })
+      .catch(error => {
+         res.status(500).json({ message: 'Error.', data: error.message })
+      })
 }
                 
-module.exports = {findUserbyPk, findAllUsers, createUser, deleteUser, updateUser}
+module.exports = {findUserbyPk, findAllUsers, findAllValidUsers, createUser, deleteUser, updateUser, validateUser}
