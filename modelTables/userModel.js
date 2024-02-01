@@ -51,6 +51,9 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 validate:{
+                    isNumeric: {
+                        msg: 'Le code postale doit contenir uniquement des chiffres.'
+                    },
                     isExactlyFiveCharacters: function (value) {
                         if (value !== null && value.toString().length !== 5) {
                             throw new Error('Code postale doit contenir 5 caractères.');
