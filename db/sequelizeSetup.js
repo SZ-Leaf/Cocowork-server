@@ -29,9 +29,6 @@ User.belongsTo(Role)
 User.hasMany(Reservation)
 Reservation.belongsTo(User)
 
-User.hasMany(Message)
-Message.belongsTo(User)
-
 MeetingRoom.hasMany(Reservation)
 Reservation.belongsTo(MeetingRoom)
 

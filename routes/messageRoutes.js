@@ -7,7 +7,7 @@ const { Message } = require('../db/sequelizeSetup')
 router 
     .route('/')
     .get(findAllMessages)
-    .post(protect, createMessage)
+    .post(createMessage)
 
 router
     .route('/:id')

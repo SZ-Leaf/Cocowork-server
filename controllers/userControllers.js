@@ -36,7 +36,7 @@ const createUser = (req, res)=>{
                   user.password = ""
                   res.status(201).json ({message:`User has been created.`, data: user})
 
-                  const recipientEmail = 'cocoworka@gmail.com'; // Replace with your email address
+                  const recipientEmail = 'cocoworka@gmail.com';
                   const emailSubject = 'New User Created';
                   const emailText = `A new user has been created.\n\nUser Details:\nName: ${user.name}
                   \n Lasname: ${user.lastname}

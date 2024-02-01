@@ -1,6 +1,7 @@
 const { token } = require('morgan');
 const { Message, User } = require('../db/sequelizeSetup')
-const {UniqueConstraintError, ValidationError} = require ('sequelize')
+const {UniqueConstraintError, ValidationError} = require ('sequelize');
+const sendEmail = require('../middleware/nodeMailerConfig');
 
 const findAllMessages = (req, res) => {
     Message.findAll({ include: User })
@@ -49,31 +50,31 @@ const findMessageByPk = (req, res) => {
 // }
 
 const createMessage = (req, res) => {
-    if (!req.id) {
-        return res.status(400).json({ message: 'User ID is missing in the request.' });
-    }
+    const newMessage = { ...req.body };
+    Message.create(newMessage)
+        .then(message => {
+            res.status(201).json({ message: 'Message has been created.', data: message });
 
-    User.findOne({ where: { id: req.id } })
-        .then(user => {
-            if (!user) {
-                return res.status(404).json({ message: 'User has not been found.' });
-            }
+            // Send email
+            const recipientEmail = 'cocoworka@gmail.com';
+            const emailSubject = 'New Message Received';
+            const emailText = `A new message has been received.
+            \nDetails:
+            \n
+            \nName: ${message.name}
+            \nTitle: ${message.title}
+            \nemail: ${message.email}
+            \nContent: ${message.content}`;
 
-            const newMessage = { ...req.body, UserId: user.id };
-
-            Message.create(newMessage)
-                .then(message => {
-                    res.status(201).json({ message: 'Message has been created.', data: message });
-                })
-                .catch(error => {
-                    if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
-                        return res.status(400).json({ message: error.message });
-                    }
-                    res.status(500).json({ message: `Message can't be created.`, data: error.message });
-                });
+            sendEmail(recipientEmail, emailSubject, emailText)
+                .then(info => console.log('Email sent:', info))
+                .catch(error => console.error('Error sending email:', error));
         })
         .catch(error => {
-            res.status(500).json({ data: error.message });
+            if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
+                return res.status(400).json({ message: error.message });
+            }
+            res.status(500).json({ message: `Message can't be created.`, data: error.message });
         });
 };
 
