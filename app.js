@@ -33,7 +33,7 @@ app.use('/api/meetingRooms', meetingRouter)
 app.use('/api/users', userRouter)
 app.use('/api/messages', messageRouter)
 app.use('/api/reservations', reservationRouter)
-app.use('./api/closedSpace', closedSpaceRouter)
+app.use('/api/closedSpace', closedSpaceRouter)
 
 app.use('/images', express.static(__dirname + '/images'));
 
