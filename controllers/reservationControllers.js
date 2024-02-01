@@ -1,3 +1,4 @@
+const { UniqueConstraintError, ValidationError } = require('sequelize');
 const { Reservation, User, MeetingRoom } = require('../db/sequelizeSetup')
 
 const findAllReservations = (req, res) => {
@@ -27,16 +28,17 @@ const findReservationByPk = (req, res) => {
 }
 
 const createReservation = (req, res) => {
-    User.findOne({ where: { username: req.username} })
+    User.findOne({ where: { id: req.userId} })
         .then(user => {
             if(!user){
                 return res.status(404).json({message:`User has not been found.`})
             }
-            const newReservation = { ...req.body, UserId:user.id }
+            console.log(req.userId);
+            const newReservation = { ...req.body, UserId: req.userId }
 
             Reservation.create(newReservation)
                 .then((reservation) => {
-                    res.status(201).json({ message: 'Reservation has been created.', data: message })
+                    res.status(201).json({ message: 'Reservation has been created.', data: reservation })
                 })
                 .catch((error) => {
                 if (error instanceof UniqueConstraintError || error instanceof ValidationError) {

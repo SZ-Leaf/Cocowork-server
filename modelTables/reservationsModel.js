@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
          type: DataTypes.DATE,
          allowNull: false,
       },
-      is_cancelled: {
+      status: {
          type: DataTypes.BOOLEAN,
          defaultValue: false,
       },
