@@ -23,7 +23,8 @@ const login = (req, res) => {
                   }
                   const token = jwt.sign({
                      id: result.id,
-                     email: result.email
+                     email: result.email,
+                     role : result.RoleId
                   }, SECRET_KEY, { expiresIn: '10h' });
 
                   // Possibilité de stocker le jwt dans un cookie côté client
@@ -48,6 +49,7 @@ const protect = (req, res, next) => {
          const decoded = jwt.verify(token, SECRET_KEY);
          req.username = decoded.data;
          req.userId = decoded.id;
+         req.email = decoded.email;
          next()
       } catch (error) {
          return res.status(403).json({ message: `Invalid token.` })
@@ -100,5 +102,56 @@ const restrictToOwnUser = (model) => {
    };
 };
 
+const restrict = (roleParam) => {
+   return (req, res, next) => {
+      const token = req.headers.authorization.split(' ')[1];
 
-module.exports = { login, protect, restrictToOwnUser }
+      try {
+         const decoded = jwt.verify(token, SECRET_KEY);
+         // const { id, role } = decoded;
+
+         User.findOne({
+            where: {
+               id: req.userId
+            }
+         })
+            .then(user => {
+               Role.findByPk(user.RoleId)
+                  .then(userRole  => {
+                     console.log('userRole:', userRole);
+                     
+                     console.log('role.label:', userRole.label);
+                     console.log('roleParam:', roleParam);
+                     console.log('rolesHierarchy:', rolesHierarchy);
+                     
+                     const userRoles = rolesHierarchy[userRole.label];
+
+                     if (!userRoles) {
+                        console.log('User roles not defined in rolesHierarchy.');
+                        return res.status(403).json({ message: `Insufficient rights.` });
+                     }
+
+                     if (userRoles.includes(roleParam)) {
+                        next();
+                     } else {
+                        console.log('RoleParam not found in userRoles.');
+                        res.status(403).json({ message: `Insufficient rights.` });
+                     }
+                  })
+                  .catch(error => {
+                     console.log(error.message)
+                  })
+            })
+            .catch(error => {
+               console.log(error)
+            })
+      }
+      catch (error) {
+         console.error(error.message);
+         res.status(403).json({ message: "Invalid token." });
+      }
+   }
+}
+
+
+module.exports = { login, protect, restrictToOwnUser, restrict }
