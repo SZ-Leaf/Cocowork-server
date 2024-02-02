@@ -60,10 +60,15 @@ const createUser = (req, res)=>{
                })
                .catch((error) => {
                   if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
-                     return res.status(400).json({ message: error.message })
+                      // Handle validation or unique constraint errors
+                      const validationErrors = error.errors.map(err => ({
+                          field: err.path,
+                          message: err.message
+                      }));
+                      return res.status(400).json({ message: 'Validation Error', errors: validationErrors });
                   }
-                  res.status(500).json({ message: `Error encountered.`, data: error.message })
-               })
+                  res.status(500).json({ message: 'Error encountered during user creation', error: error.message });
+              })
       })
       .catch(error => {
          console.log(error.message)

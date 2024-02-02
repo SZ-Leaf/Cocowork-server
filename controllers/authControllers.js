@@ -24,7 +24,8 @@ const login = (req, res) => {
                   const token = jwt.sign({
                      id: result.id,
                      email: result.email,
-                     role : result.RoleId
+                     role : result.RoleId,
+                     name : result.name
                   }, SECRET_KEY, { expiresIn: '10h' });
 
                   // Possibilité de stocker le jwt dans un cookie côté client
